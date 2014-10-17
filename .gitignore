@@ -6,6 +6,10 @@
 *.user
 *.sln.docstates
 
+//serialized files
+*.json
+*.bin
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

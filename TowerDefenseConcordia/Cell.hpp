@@ -1,6 +1,9 @@
 #pragma once
 
 #include <cstddef>
+#include <cereal/cereal.hpp>
+#include <cereal/archives/json.hpp>
+#include <cereal/archives/portable_binary.hpp>
 
 namespace TDC
 {
@@ -39,5 +42,13 @@ namespace TDC
 		inline std::size_t getIndex() const { return _index; }
 		inline bool hasNext() const { return std::size_t(-1) != _next; }
 		inline std::size_t getNext() const { return _next; }
+
+		template < typename Archive >
+		void serialize(Archive &ar)
+		{
+			ar(cereal::make_nvp("Type", _type)
+				, cereal::make_nvp("Index", _index)
+				, cereal::make_nvp("Next", _next));
+		}
 	};
 }

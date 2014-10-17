@@ -2,6 +2,7 @@
 
 #include "Cell.hpp"
 #include <vector>
+#include <cereal/types/vector.hpp>
 
 namespace TDC
 {
@@ -39,5 +40,25 @@ namespace TDC
 		void fill(const CellType &type);
 		bool verify();
 		void reset();
+
+		template < typename Archive >
+		void serialize(Archive &ar)
+		{
+			ar(cereal::make_nvp("Width", _width)
+				, cereal::make_nvp("Height", _height)
+				, cereal::make_nvp("Start", _start)
+				, cereal::make_nvp("End", _end)
+				, cereal::make_nvp("Array", _array)
+				);
+		}
+
+		// Used to debug
+		bool saveToJson(const std::string &fileName) const;
+
+		// Used at release time
+		bool saveToBinary(const std::string &fileName) const;
+
+		bool loadFromJson(const std::string &filename);
+		bool loadFromBinary(const std::string &filename);
 	};
 }
