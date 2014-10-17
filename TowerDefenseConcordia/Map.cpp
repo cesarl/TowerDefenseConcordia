@@ -9,6 +9,9 @@ namespace TDC
 		, _end(0)
 	{}
 
+	Map::~Map()
+	{}
+
 	Cell* Map::getCell(std::size_t x, std::size_t y)
 	{
 		if (x >= _width || y >= _height || !_valid())
@@ -81,7 +84,7 @@ namespace TDC
 
 	void Map::fill(const CellType &type)
 	{
-		if (_valid)
+		if (_valid())
 			return;
 		std::size_t index = 0;
 		for (auto &e : _array)
@@ -94,7 +97,7 @@ namespace TDC
 
 	bool Map::verify()
 	{
-		if (!_valid)
+		if (!_valid())
 			return false;
 		if (!getCell(0, _start)->hasNext())
 			return false;
