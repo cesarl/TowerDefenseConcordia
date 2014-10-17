@@ -10,7 +10,9 @@ namespace TDC
 	{
 		Wall = 0
 		, Path
-	}; 
+	};
+
+#define INVALID ((std::size_t)(-1))
 
 	class Cell
 	{
@@ -19,6 +21,10 @@ namespace TDC
 		CellType _type;
 		std::size_t _index;
 		std::size_t _next;
+
+		inline void setNext(std::size_t n) { _next = n; }
+		inline void setIndex(std::size_t i) { _index = i; }
+		inline void setType(const CellType &t) { _type = t; }
 	public:
 		Cell();
 		~Cell();
@@ -29,7 +35,6 @@ namespace TDC
 
 		inline const CellType &getType() const { return _type; }
 		inline bool isType(const CellType &t) const { return t == _type; }
-		inline void setType(const CellType &t) { _type = t; }
 
 		inline std::size_t getIndex() const { return _index; }
 		inline bool hasNext() const { return std::size_t(-1) != _next; }

@@ -5,8 +5,8 @@ namespace TDC
 {
 	Cell::Cell()
 		: _type(CellType::Wall)
-		, _index(std::size_t(-1))
-		, _next(std::size_t(-1))
+		, _index(INVALID)
+		, _next(INVALID)
 	{
 
 	}
