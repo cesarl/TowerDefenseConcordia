@@ -27,10 +27,12 @@ namespace TDC
 		return &_array[index];
 	}
 
-	void Map::init(std::size_t width, std::size_t height)
+	void Map::config(std::size_t width, std::size_t height, std::size_t start, std::size_t end)
 	{
 		_width = width;
 		_height = height;
+		_start = start;
+		_end = end;
 	}
 
 	void Map::setStart(std::size_t y)
@@ -187,5 +189,27 @@ namespace TDC
 		}
 		file.close();
 		return verify();
+	}
+
+	bool Map::printToFile(const std::string &filename) const
+	{
+		std::ofstream file(filename, std::ios::binary);
+		if (!file.is_open())
+			return false;
+		{
+			auto x = 0;
+			for (auto &e : _array)
+			{
+				file << (int)e.getType();
+				++x;
+				if (x >= _width)
+				{
+					file << std::endl;
+					x = 0;
+				}
+			}
+		}
+		file.close();
+		return true;
 	}
 }
