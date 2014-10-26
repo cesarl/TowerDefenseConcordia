@@ -133,4 +133,7 @@ namespace TDC
 	private:
 		std::vector<std::shared_ptr<Subscriber::Handle>> _subscribers;
 	};
+
+	class PubSub : public Publisher, public Subscriber
+	{};
 }

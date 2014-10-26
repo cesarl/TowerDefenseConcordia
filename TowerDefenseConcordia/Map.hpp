@@ -4,6 +4,8 @@
 #include <vector>
 #include <cereal/types/vector.hpp>
 
+#include "ObserverPattern.hpp"
+
 namespace TDC
 {
 
@@ -13,7 +15,7 @@ namespace TDC
 		, None = 1
 	};
 
-	class Map
+	class Map : public PubSub
 	{
 	private:
 		std::vector<Cell> _array;
