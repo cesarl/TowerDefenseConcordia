@@ -70,6 +70,8 @@
   <ItemGroup>
     <ClInclude Include="Cell.hpp" />
     <ClInclude Include="Map.hpp" />
+    <ClInclude Include="Message.hpp" />
+    <ClInclude Include="ObserverPattern.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cell.cpp" />

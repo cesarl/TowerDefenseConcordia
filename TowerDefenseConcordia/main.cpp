@@ -1,4 +1,6 @@
 #include "Map.hpp"
+#include "ObserverPattern.hpp"
+
 #include <cassert>
 
 int main(void)
@@ -55,4 +57,25 @@ int main(void)
 
 	// debug print to file
 	map.printToFile("testMapPrinted2.txt");
+
+	TDC::Subscriber subscriber1;
+	TDC::Subscriber subscriber2;
+
+	TDC::Publisher publisher;
+
+	subscriber1.subcribeToMessage<TDC::MessageTest>([&](const TDC::IMessage *msg)
+	{
+		std::cout << "Subscriber 1 " << static_cast<const TDC::MessageTest*>(msg)->value << std::endl;
+	});
+
+	subscriber2.subcribeToMessage<TDC::MessageTest>([&](const TDC::IMessage *msg)
+	{
+		std::cout << "Subscriber 2 " << static_cast<const TDC::MessageTest*>(msg)->value << std::endl;
+	});
+
+	publisher.addSubscriber(subscriber1.getHandle());
+	publisher.addSubscriber(subscriber2.getHandle());
+
+	for (auto i = 0; i < 20; i += 2)
+		publisher.publish<TDC::MessageTest>(i);
 }
