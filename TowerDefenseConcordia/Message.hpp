@@ -6,7 +6,7 @@ namespace TDC
 {
 	namespace __privateDetails
 	{
-		const std::size_t &getId()
+		static const std::size_t &__getId()
 		{
 			static std::size_t id = 0;
 			return id;
@@ -39,7 +39,7 @@ namespace TDC
 
 		static std::size_t getId()
 		{
-			static std::size_t id = const_cast<std::size_t &>(__privateDetails::getId())++;
+			static std::size_t id = const_cast<std::size_t &>(__privateDetails::__getId())++;
 			return id;
 		}
 	};

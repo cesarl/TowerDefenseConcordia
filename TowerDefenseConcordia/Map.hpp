@@ -64,7 +64,22 @@ namespace TDC
 		// reset map
 		void reset();
 
-		
+		// get map array
+		inline const std::vector<Cell> &getArray() const
+		{
+			return _array;
+		}
+
+		inline std::size_t getWidth() const
+		{
+			return _width;
+		}
+
+		inline std::size_t getHeight() const
+		{
+			return _height;
+		}
+
 		bool saveToJson(const std::string &fileName) const; // Used to debug
 		bool saveToBinary(const std::string &fileName) const; // Used at release time
 		bool loadFromJson(const std::string &filename);

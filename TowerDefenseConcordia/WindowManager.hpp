@@ -14,7 +14,7 @@ namespace TDC
 		~WindowManager()
 		{}
 
-		void init()
+		virtual void init()
 		{
 			_window.create(sf::VideoMode(800, 600), "Concordia Tower Defense");
 		}
@@ -37,6 +37,7 @@ namespace TDC
 				sf::Time elapsed = clock.restart();
 				sf::Event windowEvent;
 
+				_window.clear(sf::Color::Black);
 				_update(elapsed);
 
 				while (_window.pollEvent(windowEvent))
@@ -47,7 +48,6 @@ namespace TDC
 						_window.close();
 					}
 				}
-				_window.clear(sf::Color::Black);
 				_window.display();
 			}
 		}
@@ -55,7 +55,6 @@ namespace TDC
 	protected:
 		virtual void _updateEvents(const sf::Event &event) = 0;
 		virtual void _update(const sf::Time dt) = 0;
-	private:
 		sf::RenderWindow _window;
 	};
 }

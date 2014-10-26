@@ -1,5 +1,6 @@
 #include "Map.hpp"
 #include <fstream>
+#include "MapMessages.hpp"
 
 namespace TDC
 {
@@ -29,10 +30,16 @@ namespace TDC
 
 	void Map::config(std::size_t width, std::size_t height, std::size_t start, std::size_t end)
 	{
+		if (width == 0 || height == 0)
+		{
+			std::cerr << "Error: Invalid map size" << std::endl;
+			return;
+		}
 		_width = width;
 		_height = height;
 		_start = start;
 		_end = end;
+		publish<MapMsg::Resize>(sf::Vector2u(width, height));
 	}
 
 	void Map::setStart(std::size_t y)
