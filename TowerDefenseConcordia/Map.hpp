@@ -23,6 +23,7 @@ namespace TDC
 		std::size_t _height;
 		std::size_t _start;
 		std::size_t _end;
+		std::size_t _cellRatio;
 
 		// return true if map configuations are correct
 		inline bool _valid() const { return (_width != INVALID && _height != INVALID && _start < _height && _end < _height); }
@@ -36,6 +37,8 @@ namespace TDC
 		Map(Map &&o) = delete;
 		Map &operator=(const Map &o) = delete;
 		Map &operator=(Map &&o) = delete;
+
+		inline void setCellSizeRatio(std::size_t r) { _cellRatio = r; }
 
 		// return cell ptr based on x/y coordinates. Return nullptr if invalid value.
 		Cell *getCell(std::size_t x, std::size_t y);
