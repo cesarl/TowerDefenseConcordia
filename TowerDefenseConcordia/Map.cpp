@@ -1,6 +1,7 @@
 #include "Map.hpp"
 #include <fstream>
 #include "MapMessages.hpp"
+#include "Critter.hpp"
 
 namespace TDC
 {
@@ -40,6 +41,24 @@ namespace TDC
 		_start = start;
 		_end = end;
 		publish<MapMsg::Resize>(sf::Vector2u(width, height));
+
+		subcribeToMessage<CritterMsg::GetNextCell>([this](IMessage *msg)
+		{
+			auto m = static_cast<CritterMsg::GetNextCell*>(msg);
+			auto c = getCell(m->_current);
+			if (!c)
+			{
+				*m->_next = -1;
+				return;
+			}
+			*m->_next = c->getNext();
+		});
+
+		subcribeToMessage<CritterMsg::GetStart>([this](IMessage *msg)
+		{
+			auto m = static_cast<CritterMsg::GetStart*>(msg);
+			*m->_start = this->_start * _width;
+		});
 	}
 
 	void Map::setStart(std::size_t y)

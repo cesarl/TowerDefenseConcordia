@@ -81,5 +81,6 @@ int main(void)
 
 	TDC::Game game;
 	game.init();
+	game.generate();
 	game.launch();
 }

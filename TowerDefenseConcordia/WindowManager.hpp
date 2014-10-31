@@ -17,6 +17,7 @@ namespace TDC
 		virtual void init()
 		{
 			_window.create(sf::VideoMode(800, 600), "Concordia Tower Defense");
+			_window.setFramerateLimit(60);
 		}
 
 		void setSize(const sf::Vector2u &size)

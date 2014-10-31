@@ -14,7 +14,7 @@ namespace TDC
 	{
 	public:
 		template <typename T>
-		void subcribeToMessage(std::function<void(const IMessage *message)> function)
+		void subcribeToMessage(std::function<void(IMessage *message)> function)
 		{
 			if (_callbacks.size() <= T::getId())
 			{
@@ -59,7 +59,7 @@ namespace TDC
 		}
 
 	private:
-		bool receive(const IMessage *message)
+		bool receive(IMessage *message)
 		{
 			if (message->getTypeId() >= _callbacks.size())
 				return false;
@@ -69,7 +69,7 @@ namespace TDC
 			return true;
 		}
 
-		std::vector<std::function<void(const IMessage *message)>> _callbacks;
+		std::vector<std::function<void(IMessage *message)>> _callbacks;
 		std::shared_ptr<Handle> _handle;
 
 		friend class Publisher;
