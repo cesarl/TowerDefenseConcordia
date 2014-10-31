@@ -78,6 +78,8 @@
     <ClInclude Include="Cell.hpp" />
     <ClInclude Include="Critter.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="IModeBehaviour.hpp" />
+    <ClInclude Include="LaunchModeBehaviour.hpp" />
     <ClInclude Include="Map.hpp" />
     <ClInclude Include="MapMessages.hpp" />
     <ClInclude Include="Message.hpp" />

@@ -40,7 +40,7 @@ namespace TDC
 		_height = height;
 		_start = start;
 		_end = end;
-		publish<MapMsg::Resize>(sf::Vector2u(width, height));
+		publish<Msg::Resize>(sf::Vector2u(width, height));
 
 		subcribeToMessage<CritterMsg::GetNextCell>([this](IMessage *msg)
 		{

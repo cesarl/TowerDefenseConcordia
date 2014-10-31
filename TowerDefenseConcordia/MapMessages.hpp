@@ -4,10 +4,11 @@
 #include "Cell.hpp"
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
 
 namespace TDC
 {
-	namespace MapMsg
+	namespace Msg
 	{
 		struct Resize : Message<Resize>
 		{
@@ -25,6 +26,15 @@ namespace TDC
 			{}
 
 			const std::vector<Cell> *array;
+		};
+
+		//message
+		struct Event : Message < Event >
+		{
+			sf::Event event;
+			Event(const sf::Event &e)
+				: event(e)
+			{}
 		};
 	}
 }

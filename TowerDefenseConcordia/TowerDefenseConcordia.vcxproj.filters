@@ -39,6 +39,12 @@
     <ClInclude Include="Critter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LaunchModeBehaviour.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IModeBehaviour.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cell.cpp">
