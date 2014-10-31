@@ -77,6 +77,10 @@ namespace TDC
 					generate();
 				}
 			}
+			else if (event.type == sf::Event::Resized)
+			{
+				computeCellSizeRatio();
+			}
 		}
 
 		virtual void _update(const sf::Time dt)
@@ -160,6 +164,7 @@ Key G to generate a new map.", _arial, 20);
 
 			_cellSizeRatio = _window.getSize().x / w;
 			_cellSizeRatio = _window.getSize().y / h < _cellSizeRatio ? _window.getSize().y / h : _cellSizeRatio;
+			_window.setView(sf::View(sf::FloatRect(0, 0, _window.getSize().x, _window.getSize().y)));
 			_map.setCellSizeRatio(_cellSizeRatio);
 		}
 
