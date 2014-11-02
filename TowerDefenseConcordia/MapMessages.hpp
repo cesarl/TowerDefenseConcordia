@@ -36,5 +36,27 @@ namespace TDC
 				: event(e)
 			{}
 		};
+
+		struct PlayMode : Message < PlayMode >
+		{
+			enum Mode
+			{
+				MainMenu = 0,
+				LoadMap,
+				CreateMap,
+				EditMap,
+				Play
+			};
+			Mode mode;
+			std::string argument;
+
+			PlayMode(Mode _mode, std::string _argument = "")
+				: mode(_mode)
+				, argument(_argument)
+			{}
+
+			PlayMode() = delete;
+
+		};
 	}
 }

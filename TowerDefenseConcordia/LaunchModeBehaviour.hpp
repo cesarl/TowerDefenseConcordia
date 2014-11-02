@@ -3,6 +3,7 @@
 #include "IModeBehaviour.hpp"
 #include "MapMessages.hpp"
 #include <iostream>
+#include "TextButton.hpp"
 
 namespace TDC
 {
@@ -11,56 +12,57 @@ namespace TDC
 	public:
 		virtual void init()
 		{
-			_arial.loadFromFile("../assets/arial.ttf");
-
-			subcribeToMessage<Msg::Event>([&](const IMessage *msg)
+			subcribeToMessage<Msg::Resize>([this](const IMessage *msg)
 			{
-				auto m = static_cast<const Msg::Event*>(msg);
-
-				if (m->event.type == sf::Event::MouseButtonPressed && m->event.mouseButton.button == sf::Mouse::Left)
-				{
-					if (m->event.mouseButton.x >= _playBtn.getPosition().x
-						&& m->event.mouseButton.x <= _playBtn.getPosition().x + _playBtn.getSize().x
-						&& m->event.mouseButton.y >= _playBtn.getPosition().y
-						&& m->event.mouseButton.y <= _playBtn.getPosition().y + _playBtn.getSize().y)
-					{
-						std::cout << "Play !!!!" << std::endl;
-					}
-					else if (m->event.mouseButton.x >= _editBtn.getPosition().x
-						&& m->event.mouseButton.x <= _editBtn.getPosition().x + _playBtn.getSize().x
-						&& m->event.mouseButton.y >= _editBtn.getPosition().y
-						&& m->event.mouseButton.y <= _editBtn.getPosition().y + _playBtn.getSize().y)
-					{
-						std::cout << "Edit !!!!" << std::endl;
-					}
-
-				}
+				publish<Msg::Resize>(*static_cast<const Msg::Resize*>(msg));
 			});
 
-			_playBtn.setSize({ 300, 200 });
-			_playBtn.setFillColor(sf::Color::Green);
-			_playBtn.setPosition(300, 200);
-			_playTxt.setString("Play !");
-			_playTxt.setFont(_arial);
-			_playTxt.setCharacterSize(20);
-			_playTxt.setColor(sf::Color::Black);
-			_playTxt.setPosition(300, 200);
+			subcribeToMessage<Msg::Event>([this](const IMessage *msg)
+			{
+				publish<Msg::Event>(*static_cast<const Msg::Event*>(msg));
+			});
+
+			_play = std::make_unique<TextButton>(
+				sf::Vector2u(50, 33)
+				, sf::Vector2u(50, 33)
+				, "Play !"
+				, sf::Color::Blue
+				, sf::Color::Green
+				, 20 );
+			_play->init();
+			addSubscriber(_play->getHandle());
+
+			_play->setOnClickCallback([&](){
+				this->publish<Msg::PlayMode>(Msg::PlayMode::Mode::Play, "");
+			});
+
+
+			_edit = std::make_unique<TextButton>(
+				sf::Vector2u(50, 66)
+				, sf::Vector2u(50, 33)
+				, "Edit !"
+				, sf::Color::Red
+				, sf::Color::Yellow
+				, 20);
+			_edit->init();
+			addSubscriber(_edit->getHandle());
+
+			_edit->setOnClickCallback([&](){
+				this->publish<Msg::PlayMode>(Msg::PlayMode::Mode::EditMap, "");
+			});
 
 		}
 
 		virtual void update(const sf::Time &dt, sf::RenderWindow *renderWindow)
 		{
-			renderWindow->draw(_playBtn);
-			renderWindow->draw(_playTxt);
+			_play->update(dt, renderWindow);
+			_edit->update(dt, renderWindow);
 		}
 
 		virtual ~LaunchModeBehaviour()
 		{}
 	private:
-		sf::Font _arial;
-		sf::RectangleShape _playBtn;
-		sf::RectangleShape _editBtn;
-		sf::Text _playTxt;
-		sf::Text _editTxt;
+		std::unique_ptr<TextButton> _play;
+		std::unique_ptr<TextButton> _edit;
 	};
 }

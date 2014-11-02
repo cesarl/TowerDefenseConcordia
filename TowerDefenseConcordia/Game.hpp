@@ -26,7 +26,7 @@ namespace TDC
 		{
 		}
 
-		void setEditionMode()
+		void setEditionMode(const std::string &mapFilePath)
 		{}
 
 		void setLaunchMode()
@@ -40,6 +40,8 @@ namespace TDC
 			addSubscriber(_mode->getHandle());
 			_mode->addSubscriber(getHandle());
 			_mode->init();
+			// we publish the size of the window to resize buttons
+			publish<Msg::Resize>(_window.getSize());
 		}
 
 		virtual void init()
@@ -51,6 +53,30 @@ namespace TDC
 			subcribeToMessage<Msg::Resize>([this](const IMessage *msg)
 			{
 				computeCellSizeRatio();
+			});
+
+			subcribeToMessage<Msg::PlayMode>([this](const IMessage *msg){
+				const auto *m = static_cast<const Msg::PlayMode*>(msg);
+				switch (m->mode)
+				{
+				case Msg::PlayMode::CreateMap:
+					setEditionMode(m->argument);
+					break;
+				case Msg::PlayMode::EditMap:
+					setEditionMode(m->argument);
+					break;
+				case Msg::PlayMode::LoadMap:
+					setPlayMode(m->argument);
+					break;
+				case Msg::PlayMode::MainMenu:
+					setLaunchMode();
+					break;
+				case Msg::PlayMode::Play:
+					setPlayMode(m->argument);
+					break;
+				default:
+					break;
+				}
 			});
 
 			_arial.loadFromFile("../assets/arial.ttf");
