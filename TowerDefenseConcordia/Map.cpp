@@ -40,7 +40,7 @@ namespace TDC
 		_height = height;
 		_start = start;
 		_end = end;
-		publish<Msg::Resize>(sf::Vector2u(width, height));
+		//publish<Msg::Resize>(sf::Vector2u(width, height));
 
 		subcribeToMessage<CritterMsg::GetNextCell>([this](IMessage *msg)
 		{
@@ -201,7 +201,9 @@ namespace TDC
 			ar(*this);
 		}
 		file.close();
-		return verify();
+		auto returnValue = verify();
+		config(_width, _height, _start, _end);
+		return returnValue;
 	}
 
 	bool Map::loadFromBinary(const std::string &filename)
@@ -214,7 +216,9 @@ namespace TDC
 			ar(*this);
 		}
 		file.close();
-		return verify();
+		auto returnValue = verify();
+		config(_width, _height, _start, _end);
+		return returnValue;
 	}
 
 	bool Map::printToFile(const std::string &filename) const

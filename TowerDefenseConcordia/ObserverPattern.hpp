@@ -37,37 +37,17 @@ namespace TDC
 		{
 			Subscriber *ptr;
 			bool valid;
-			Handle(Subscriber *_ptr, bool _valid)
-				: ptr(_ptr)
-				, valid(_valid)
-			{}
+			Handle(Subscriber *_ptr, bool _valid);
 		};
 
-		Subscriber()
-		{
-			_handle = std::make_shared<Handle>(this, true);
-		}
-
-		virtual ~Subscriber()
-		{
-			_handle->valid = false;
-		}
-
+		Subscriber();
+		virtual ~Subscriber();
 		inline const std::shared_ptr<Handle> getHandle() const
 		{
 			return _handle;
 		}
-
 	private:
-		bool receive(IMessage *message)
-		{
-			if (message->getTypeId() >= _callbacks.size())
-				return false;
-			if (!_callbacks[message->getTypeId()])
-				return false;
-			_callbacks[message->getTypeId()](message);
-			return true;
-		}
+		bool receive(IMessage *message);
 
 		std::vector<std::function<void(IMessage *message)>> _callbacks;
 		std::shared_ptr<Handle> _handle;
@@ -78,58 +58,23 @@ namespace TDC
 	class Publisher
 	{
 	public:
-		Publisher()
-		{}
-
-		~Publisher()
-		{}
+		Publisher();
+		virtual ~Publisher();
 
 		template <class T, typename... Args>
 		void publish(Args ...args)
 		{
 			T tmp(args...);
-			for (auto &e : _subscribers)
+			for (unsigned int i = 0; i < _subscribers.size(); ++i)
 			{
+				auto &e = _subscribers[i];
 				e->ptr->receive(&tmp);
 			}
 		}
 
-		void addSubscriber(std::shared_ptr<Subscriber::Handle> handle)
-		{
-			for (auto &e : _subscribers)
-			{
-				if (e->ptr == handle->ptr)
-					return;
-			}
-			_subscribers.push_back(handle);
-		}
-
-		void removeSubscriber(std::shared_ptr<Subscriber::Handle> handle)
-		{
-			for (auto i = 0; i < _subscribers.size(); ++i)
-			{
-				if (_subscribers[i]->ptr == handle->ptr)
-				{
-					std::swap(_subscribers[i], _subscribers.back());
-					_subscribers.pop_back();
-					return;
-				}
-			}
-		}
-
-		void removeEmptySubscribers()
-		{
-			for (auto i = 0; i < _subscribers.size(); ++i)
-			{
-				if (!_subscribers[i]->valid)
-				{
-					std::swap(_subscribers[i], _subscribers.back());
-					_subscribers.pop_back();
-					return;
-				}
-			}
-		}
-
+		void addSubscriber(std::shared_ptr<Subscriber::Handle> handle);
+		void removeSubscriber(std::shared_ptr<Subscriber::Handle> handle);
+		void removeEmptySubscribers();
 	private:
 		std::vector<std::shared_ptr<Subscriber::Handle>> _subscribers;
 	};

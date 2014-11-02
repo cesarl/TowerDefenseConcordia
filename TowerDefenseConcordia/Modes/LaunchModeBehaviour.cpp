@@ -1,16 +1,8 @@
-#pragma once
-
-#include "IModeBehaviour.hpp"
-#include "MapMessages.hpp"
-#include <iostream>
-#include "TextButton.hpp"
+#include "LaunchModeBehaviour.hpp"
 
 namespace TDC
 {
-	class LaunchModeBehaviour : public IModeBehaviour
-	{
-	public:
-		virtual void init()
+		void LaunchModeBehaviour::init()
 		{
 			subcribeToMessage<Msg::Resize>([this](const IMessage *msg)
 			{
@@ -28,19 +20,19 @@ namespace TDC
 				, "Play !"
 				, sf::Color::Blue
 				, sf::Color::Green
-				, 20 );
+				, 20);
 			_play->init();
 			addSubscriber(_play->getHandle());
 
 			_play->setOnClickCallback([&](){
-				this->publish<Msg::PlayMode>(Msg::PlayMode::Mode::Play, "");
+				this->publish<Msg::PlayMode>(Msg::PlayMode::Mode::ChoosePlayMode, "");
 			});
 
 
 			_edit = std::make_unique<TextButton>(
 				sf::Vector2u(50, 66)
 				, sf::Vector2u(50, 33)
-				, "Edit !"
+				, "Edit ! (Coming soon)"
 				, sf::Color::Red
 				, sf::Color::Yellow
 				, 20);
@@ -53,16 +45,12 @@ namespace TDC
 
 		}
 
-		virtual void update(const sf::Time &dt, sf::RenderWindow *renderWindow)
+		void LaunchModeBehaviour::update(const sf::Time &dt, sf::RenderWindow *renderWindow)
 		{
 			_play->update(dt, renderWindow);
 			_edit->update(dt, renderWindow);
 		}
 
-		virtual ~LaunchModeBehaviour()
+		LaunchModeBehaviour::~LaunchModeBehaviour()
 		{}
-	private:
-		std::unique_ptr<TextButton> _play;
-		std::unique_ptr<TextButton> _edit;
-	};
 }

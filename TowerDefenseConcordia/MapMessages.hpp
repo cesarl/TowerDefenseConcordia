@@ -45,7 +45,8 @@ namespace TDC
 				LoadMap,
 				CreateMap,
 				EditMap,
-				Play
+				Play,
+				ChoosePlayMode
 			};
 			Mode mode;
 			std::string argument;

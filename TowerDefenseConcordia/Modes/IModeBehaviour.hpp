@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ObserverPattern.hpp"
+#include "../ObserverPattern.hpp"
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 

@@ -18,52 +18,13 @@ namespace TDC
 			, const std::string &text = "Text"
 			, const sf::Color &textColor = sf::Color(255, 255, 255, 255)
 			, const sf::Color &bgColor = sf::Color(122, 122, 122, 255)
-			, std::size_t fontSize = 20)
-			: IButton(position, dimensions)
-		{
-			std::call_once(_flag, [&](){
-				_font = std::make_unique<sf::Font>();
-				assert(_font->loadFromFile("../assets/arial.ttf"));
-			});
-			_computeBoundingBox();
-			_shape.setPosition(_bbX.x, _bbY.x);
-			_shape.setSize(sf::Vector2f(_bbX.y - _bbX.x, _bbY.y - _bbY.x ));
-			_shape.setFillColor(bgColor);
-			_text.setFont(*_font);
-			_text.setCharacterSize(fontSize);
-			_text.setPosition(_bbX.x, _bbY.y);
-			_text.setColor(textColor);
-			_text.setString(text);
-		}
+			, std::size_t fontSize = 20);
 	protected:
-		virtual void _update(const sf::Time &dt, sf::RenderWindow *window)
-		{
-			if (window && _active)
-			{
-				window->draw(_shape);
-				window->draw(_text);
-			}
-		}
-		virtual void _onClick()
-		{
-			if (_onClickCallback)
-				_onClickCallback();
-		}
-
-		virtual void _event(const sf::Event &event)
-		{
-		}
-
-		virtual void _init()
-		{}
-
-		virtual void _resized()
-		{
-			_shape.setPosition(_bbX.x, _bbY.x);
-			_shape.setSize(sf::Vector2f(_bbX.y - _bbX.x, _bbY.y - _bbY.x));
-			_text.setPosition(_bbX.x + (_bbX.y - _bbX.x) / 2.0f - _text.getLocalBounds().width / 2.0f, _bbY.x + (_bbY.y - _bbY.x) / 2.0f - _text.getLocalBounds().height / 2.0f);
-//			_text.getLocalBounds();
-		}
+		virtual void _update(const sf::Time &dt, sf::RenderWindow *window);
+		virtual void _onClick();
+		virtual void _event(const sf::Event &event);
+		virtual void _init();
+		virtual void _resized();
 	private:
 		sf::RectangleShape _shape;
 		sf::Text _text;

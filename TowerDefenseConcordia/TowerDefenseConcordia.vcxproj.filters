@@ -39,16 +39,22 @@
     <ClInclude Include="Critter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LaunchModeBehaviour.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IModeBehaviour.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IButton.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextButton.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Modes\LaunchModeBehaviour.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Modes\IModeBehaviour.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Modes\ChooseGameModeBehaviour.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Modes\DemoMapBehaviour.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -63,6 +69,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Modes\ChooseGameModeBehaviour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Modes\DemoMapBehaviour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Modes\LaunchModeBehaviour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObserverPattern.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

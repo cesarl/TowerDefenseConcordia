@@ -79,8 +79,10 @@
     <ClInclude Include="Critter.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="IButton.hpp" />
-    <ClInclude Include="IModeBehaviour.hpp" />
-    <ClInclude Include="LaunchModeBehaviour.hpp" />
+    <ClInclude Include="Modes\ChooseGameModeBehaviour.hpp" />
+    <ClInclude Include="Modes\DemoMapBehaviour.hpp" />
+    <ClInclude Include="Modes\IModeBehaviour.hpp" />
+    <ClInclude Include="Modes\LaunchModeBehaviour.hpp" />
     <ClInclude Include="Map.hpp" />
     <ClInclude Include="MapMessages.hpp" />
     <ClInclude Include="Message.hpp" />
@@ -92,6 +94,13 @@
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Modes\ChooseGameModeBehaviour.cpp" />
+    <ClCompile Include="Modes\DemoMapBehaviour.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="IButton.cpp" />
+    <ClCompile Include="Modes\LaunchModeBehaviour.cpp" />
+    <ClCompile Include="WindowManager.cpp" />
+    <ClCompile Include="ObserverPattern.cpp" />
     <ClCompile Include="TextButton.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
